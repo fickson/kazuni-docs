@@ -3,48 +3,22 @@ import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import styles from './index.module.css';
 
-const PATHS = [
-  {
-    label: 'Platform',
-    title: 'Send from the dashboard',
-    desc: 'Verify a sending domain, build templates, manage contacts, and run campaigns without writing code. Built for the person on your team who owns customer communication, not the codebase.',
-    href: '/docs/platform/overview',
-    links: [
-      { label: 'Getting started', href: '/docs/platform/getting-started' },
-      { label: 'Sending domains and DKIM', href: '/docs/platform/sending-domains' },
-      { label: 'Campaigns', href: '/docs/platform/campaigns' },
-    ],
-  },
-  {
-    label: 'SDK',
-    title: 'Send from your code',
-    desc: 'Install the kazuni package, authenticate with an API key, and call one method to send a transactional email. Typed end to end, with a clear error hierarchy and safe retries.',
-    href: '/docs/sdk/overview',
-    links: [
-      { label: 'Quickstart', href: '/docs/sdk/quickstart' },
-      { label: 'Authentication', href: '/docs/sdk/authentication' },
-      { label: 'API reference', href: '/docs/sdk/api-reference' },
-    ],
-  },
+const STATUS_LINES = [
+  { time: '06:16:37', to: 'chikondi@example.com' },
+  { time: '06:16:37', to: 'k.banda@zamtel.zm' },
+  { time: '06:16:38', to: 'amara.osei@ghanapost.gh' },
 ];
 
-const CAPABILITIES = [
-  {
-    title: 'Email today',
-    desc: 'Transactional email sending is live: verify a domain, get an API key, send. SMS and WhatsApp are planned, not yet available.',
-  },
-  {
-    title: 'Your own domain',
-    desc: 'Send from an address on a domain you control. Kazuni walks you through the DNS records and checks propagation for you.',
-  },
-  {
-    title: 'Mobile money billing',
-    desc: 'Pay for Kazuni in your own currency via mobile money, billed through Chia - no foreign card required.',
-  },
-  {
-    title: 'Built for African businesses',
-    desc: 'Priced and designed for teams who need reliable notifications without a Silicon Valley budget or a foreign bank account.',
-  },
+const PLATFORM_LINKS = [
+  { label: 'Getting started', href: '/docs/platform/getting-started' },
+  { label: 'Verifying a sending domain', href: '/docs/platform/sending-domains' },
+  { label: 'Building a campaign', href: '/docs/platform/campaigns' },
+];
+
+const SDK_LINKS = [
+  { label: 'Quickstart', href: '/docs/sdk/quickstart' },
+  { label: 'Authentication', href: '/docs/sdk/authentication' },
+  { label: 'API reference', href: '/docs/sdk/api-reference' },
 ];
 
 export default function Home(): ReactNode {
@@ -55,73 +29,85 @@ export default function Home(): ReactNode {
     >
       <main>
         <section className={styles.hero}>
-          <p className={styles.eyebrow}>Documentation</p>
-          <h1 className={styles.heroTitle}>Notifications for African businesses</h1>
-          <p className={styles.heroDesc}>
-            Kazuni is a unified notifications platform - email today, with SMS and WhatsApp
-            planned. Send from the dashboard, or send from your own code with the{' '}
-            <code>kazuni</code> SDK.
-          </p>
-        </section>
+          <div>
+            <h1 className={styles.heroTitle}>Notifications for African businesses.</h1>
+            <p className={styles.heroDesc}>
+              Send email today, SMS and WhatsApp next, through one API and one dashboard. Verify
+              your domain once and start sending.
+            </p>
+            <div className={styles.paths}>
+              <Link className={styles.btnPrimary} to="/docs/sdk/quickstart">
+                Start sending
+              </Link>
+              <Link className={styles.btnGhost} to="/docs/platform/overview">
+                Read the guides
+              </Link>
+            </div>
+          </div>
 
-        <section className={styles.pathsSection}>
-          <div className={styles.pathsGrid}>
-            {PATHS.map((path, i) => (
-              <div key={path.label} className={i === 0 ? styles.pathCol : styles.pathColBordered}>
-                <p className={styles.pathLabel}>{path.label}</p>
-                <Link to={path.href} className={styles.pathTitleLink}>
-                  <h2 className={styles.pathTitle}>{path.title}</h2>
-                </Link>
-                <p className={styles.pathDesc}>{path.desc}</p>
-                <ul className={styles.pathLinks}>
-                  {path.links.map((link) => (
-                    <li key={link.href}>
-                      <Link to={link.href} className={styles.pathLink}>
-                        {link.label} &rarr;
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div className={styles.demo}>
+            <div className={styles.code}>
+              <div className={styles.codeLang}>TypeScript</div>
+              <pre className={styles.codePre}>
+                <span className={styles.tokK}>await</span> kazuni.send.
+                <span className={styles.tokF}>email</span>{'({\n'}
+                {'  from: '}
+                <span className={styles.tokS}>&quot;invoices@acme.mw&quot;</span>
+                {',\n'}
+                {'  to: '}
+                <span className={styles.tokS}>&quot;chikondi@example.com&quot;</span>
+                {',\n'}
+                {'  subject: '}
+                <span className={styles.tokS}>&quot;Your July invoice&quot;</span>
+                {',\n'}
+                {'  template: '}
+                <span className={styles.tokS}>&quot;invoice-ready&quot;</span>
+                {',\n});'}
+              </pre>
+            </div>
+            <div className={styles.arrowline}>
+              <span>produces</span>
+              <span className={styles.arrowlineRule} />
+            </div>
+            <div className={styles.status}>
+              {STATUS_LINES.map((line) => (
+                <div key={line.to}>
+                  {line.time} <b className={styles.statusOk}>delivered</b>{' '}
+                  <span className={styles.statusTo}>{line.to}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section className={styles.capabilitiesSection}>
-          <p className={styles.eyebrow}>What Kazuni does</p>
-          <dl className={styles.capabilitiesList}>
-            {CAPABILITIES.map((item) => (
-              <div key={item.title} className={styles.capabilityRow}>
-                <dt className={styles.capabilityTitle}>{item.title}</dt>
-                <dd className={styles.capabilityDesc}>{item.desc}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-
-        <section className={styles.codeSection}>
-          <p className={styles.eyebrow}>Two calls to send an email</p>
-          <pre className={styles.codeBlock}>
-            <code>{`import { Kazuni } from "kazuni";
-
-const kazuni = new Kazuni(process.env.KAZUNI_API_KEY!);
-
-const result = await kazuni.send.email({
-  from: "Acme <hello@acme.example>",
-  to: "customer@example.com",
-  subject: "Welcome to Acme",
-  html: "<p>Thanks for signing up.</p>",
-});
-
-console.log(result.id, result.status); // "email_...", "queued"`}</code>
-          </pre>
-          <div className={styles.codeCta}>
-            <Link className={styles.btnPrimary} to="/docs/sdk/quickstart">
-              SDK quickstart
-            </Link>
-            <Link className={styles.btnGhost} to="/docs/platform/getting-started">
-              Platform getting started
-            </Link>
+        <section className={styles.split}>
+          <div className={styles.splitCol}>
+            <h3>Platform</h3>
+            <p>
+              For anyone running sends from the dashboard: domains, contacts, templates and
+              campaigns.
+            </p>
+            <div className={styles.lst}>
+              {PLATFORM_LINKS.map((link) => (
+                <Link key={link.href} className={styles.lstLink} to={link.href}>
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className={styles.splitColBordered}>
+            <h3>SDK and API</h3>
+            <p>
+              For developers integrating Kazuni into an application, in TypeScript or over plain
+              HTTP.
+            </p>
+            <div className={styles.lst}>
+              {SDK_LINKS.map((link) => (
+                <Link key={link.href} className={styles.lstLink} to={link.href}>
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
       </main>

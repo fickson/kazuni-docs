@@ -3,6 +3,12 @@ import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
 const sidebars: SidebarsConfig = {
   platformSidebar: [
     {
+      type: 'html',
+      value: 'Get started',
+      className: 'menu-group-label',
+      defaultStyle: true,
+    },
+    {
       type: 'doc',
       id: 'platform/overview',
       label: 'Overview',
@@ -30,6 +36,12 @@ const sidebars: SidebarsConfig = {
     },
   ],
   sdkSidebar: [
+    {
+      type: 'html',
+      value: 'SDK',
+      className: 'menu-group-label',
+      defaultStyle: true,
+    },
     {
       type: 'doc',
       id: 'sdk/overview',
@@ -59,6 +71,12 @@ const sidebars: SidebarsConfig = {
       type: 'doc',
       id: 'sdk/idempotency-and-retries',
       label: 'Idempotency and Retries',
+    },
+    {
+      type: 'html',
+      value: 'Reference',
+      className: 'menu-group-label',
+      defaultStyle: true,
     },
     {
       type: 'doc',

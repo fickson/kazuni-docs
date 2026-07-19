@@ -15,6 +15,32 @@ exactly those three and nothing else. If you're looking for webhooks, scheduled 
 WhatsApp, or contact management via the API - none of that exists yet. See
 [SDK Overview](/docs/sdk/overview#whats-not-here-yet) for the full list of what's not here yet.
 
+## Endpoints
+
+<div className="kz-endpoints">
+<div className="kz-endpoint">
+<span className="kz-endpoint-verb kz-endpoint-verb--post">POST</span>
+<div>
+<div className="kz-endpoint-path">/v1/emails/send</div>
+<div className="kz-endpoint-desc">Queue a single email for delivery. Returns immediately with an id and a status of <code>queued</code>.</div>
+</div>
+</div>
+<div className="kz-endpoint">
+<span className="kz-endpoint-verb kz-endpoint-verb--get">GET</span>
+<div>
+<div className="kz-endpoint-path">/v1/emails/:id</div>
+<div className="kz-endpoint-desc">Retrieve one email and its current delivery status.</div>
+</div>
+</div>
+<div className="kz-endpoint">
+<span className="kz-endpoint-verb kz-endpoint-verb--get">GET</span>
+<div>
+<div className="kz-endpoint-path">/v1/me</div>
+<div className="kz-endpoint-desc">Return the organization and permissions attached to the API key in use.</div>
+</div>
+</div>
+</div>
+
 ## Base URL
 
 ```

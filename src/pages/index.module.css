@@ -1,0 +1,237 @@
+/* Hero */
+.hero {
+  padding: 96px 24px 56px;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--ifm-color-primary);
+  margin: 0 0 12px;
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  color: var(--ifm-color-content);
+  margin: 0;
+}
+
+.heroDesc {
+  margin: 20px auto 0;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ifm-color-emphasis-700);
+  max-width: 560px;
+}
+
+.heroDesc code {
+  font-size: 0.9em;
+}
+
+/* Two paths */
+.pathsSection {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 56px 24px;
+  border-top: 1px solid var(--ifm-toc-border-color);
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+}
+
+.pathsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.pathCol {
+  padding-right: 48px;
+}
+
+.pathColBordered {
+  padding-left: 48px;
+  border-left: 1px solid var(--ifm-toc-border-color);
+}
+
+.pathLabel {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--ifm-color-primary);
+  margin: 0 0 8px;
+}
+
+.pathTitleLink {
+  text-decoration: none !important;
+}
+
+.pathTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ifm-color-content) !important;
+  margin: 0 0 12px;
+}
+
+.pathTitleLink:hover .pathTitle {
+  color: var(--ifm-color-primary) !important;
+}
+
+.pathDesc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0 0 20px;
+}
+
+.pathLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pathLink {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ifm-color-primary) !important;
+  text-decoration: none !important;
+}
+
+.pathLink:hover {
+  text-decoration: underline !important;
+}
+
+/* Capabilities */
+.capabilitiesSection {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 56px 24px;
+}
+
+.capabilitiesList {
+  margin: 24px 0 0;
+}
+
+.capabilityRow {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--ifm-toc-border-color);
+}
+
+.capabilityRow:last-child {
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+}
+
+.capabilityTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ifm-color-content);
+  margin: 0;
+}
+
+.capabilityDesc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0;
+}
+
+/* Code section */
+.codeSection {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 56px 24px 96px;
+}
+
+.codeBlock {
+  margin: 24px 0 0;
+  padding: 24px;
+  border: 1px solid var(--ifm-toc-border-color);
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.codeCta {
+  margin-top: 28px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: var(--ifm-color-primary);
+  color: #ffffff !important;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: background 0.15s;
+}
+
+.btnPrimary:hover {
+  background: var(--ifm-color-primary-dark);
+  color: #ffffff !important;
+}
+
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ifm-color-content) !important;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none !important;
+  border: 1px solid var(--ifm-toc-border-color);
+  transition: border-color 0.15s;
+}
+
+.btnGhost:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .hero {
+    padding: 64px 24px 40px;
+  }
+
+  .pathsGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .pathCol {
+    padding-right: 0;
+  }
+
+  .pathColBordered {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid var(--ifm-toc-border-color);
+    padding-top: 40px;
+  }
+
+  .capabilityRow {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}

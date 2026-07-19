@@ -1,8 +1,30 @@
 @import '@fontsource-variable/sora';
 
+/* ==========================================================================
+   Design tokens (Tidewater palette, dashboard-matched)
+   Chrome (navbar + sidebar) is a constant dark indigo in both themes.
+   Only the reading surface flips between paper (light) and ink (dark).
+   ========================================================================== */
 :root {
-  /* Tidewater palette: #272643 indigo, #FFFFFF, #E3F6F5 ice, #BAE8E8 aqua, #2C698D steel blue */
-  --ifm-color-primary: #2c698d;
+  --indigo: #272643;
+  --indigo-2: #34325a;
+  --ice: #e3f6f5;
+  --aqua: #bae8e8;
+  --steel: #2c698d;
+  --paper: #ffffff;
+  --ink: #272643;
+  --mut: #5c6482;
+  --line: #dbe6e8;
+  --code-bg: #f3fafa;
+  --ok: #1d7a53;
+  --body: #3f4664;
+
+  --rail-inactive: #b7bed6;
+  --rail-active: #ffffff;
+  --rail-group-label: #7a82a8;
+  --rail-wash: rgba(186, 232, 232, 0.09);
+
+  --ifm-color-primary: var(--steel);
   --ifm-color-primary-dark: #22526e;
   --ifm-color-primary-darker: #1b4057;
   --ifm-color-primary-darkest: #112937;
@@ -10,28 +32,48 @@
   --ifm-color-primary-lighter: #4294c4;
   --ifm-color-primary-lightest: #65a7cf;
 
-  --ifm-color-content: #272643;
-  --ifm-background-color: #ffffff;
+  --ifm-color-content: var(--ink);
+  --ifm-background-color: var(--paper);
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(44, 105, 141, 0.1);
 
   --ifm-font-family-base: 'Sora Variable', system-ui, -apple-system, sans-serif;
   --ifm-heading-font-family: 'Sora Variable', system-ui, -apple-system, sans-serif;
-  --ifm-font-family-monospace: 'SF Mono', 'Menlo', 'Consolas', 'Liberation Mono', monospace;
+  --ifm-font-family-monospace: ui-monospace, 'SF Mono', 'Menlo', 'Consolas',
+    'Liberation Mono', monospace;
 
   --ifm-heading-font-weight: 600;
-  --ifm-code-border-radius: 8px;
+  --ifm-code-border-radius: 4px;
   --ifm-global-radius: 8px;
   --ifm-button-border-radius: 8px;
-  --ifm-alert-border-radius: 8px;
-  --ifm-card-border-radius: 8px;
+  --ifm-alert-border-radius: 0;
+  --ifm-card-border-radius: 0;
 
+  /* Navbar chrome - always dark indigo */
+  --ifm-navbar-background-color: var(--indigo);
   --ifm-navbar-shadow: none;
+  --ifm-navbar-link-color: var(--rail-inactive);
+  --ifm-navbar-link-hover-color: #ffffff;
+  --ifm-navbar-search-input-background-color: rgba(255, 255, 255, 0.08);
+  --ifm-navbar-search-input-color: #ffffff;
+  --ifm-navbar-search-input-placeholder-color: #9099bd;
+  --ifm-navbar-search-input-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='%239099bd' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+
+  --ifm-toc-border-color: var(--line);
+  --ifm-table-border-color: var(--line);
 }
 
 [data-theme='dark'] {
-  /* Dark mode built around the indigo background, with the primary ramp lifted to read on it */
-  --ifm-color-primary: #6cafd0;
+  --paper: #1c1b34;
+  --ink: #e3f6f5;
+  --mut: #9aa3bf;
+  --line: rgba(227, 246, 245, 0.12);
+  --code-bg: #23223f;
+  --body: #c7cee6;
+  --ok: #2fbf8f;
+  --steel: #6cafd0;
+
+  --ifm-color-primary: var(--steel);
   --ifm-color-primary-dark: #4d9ec7;
   --ifm-color-primary-darker: #3b90ba;
   --ifm-color-primary-darkest: #31789b;
@@ -39,102 +81,384 @@
   --ifm-color-primary-lighter: #a6cfe3;
   --ifm-color-primary-lightest: #c9e1ee;
 
-  --ifm-background-color: #1c1b34;
-  --ifm-background-surface-color: #23223f;
-  --ifm-navbar-background-color: #1c1b34;
-  --ifm-footer-background-color: #272643;
-  --ifm-footer-color: #bae8e8;
-  --ifm-color-content: #e3f6f5;
+  --ifm-background-color: var(--paper);
+  --ifm-background-surface-color: var(--code-bg);
+  --ifm-color-content: var(--ink);
   --docusaurus-highlighted-code-line-bg: rgba(186, 232, 232, 0.12);
+  --ifm-toc-border-color: var(--line);
+  --ifm-table-border-color: var(--line);
 }
 
-/* Navbar */
+/* ==========================================================================
+   Navbar - full-width dark indigo chrome
+   ========================================================================== */
 .navbar {
-  border-bottom: 1px solid var(--ifm-toc-border-color);
+  border-bottom: 1px solid var(--indigo-2);
 }
 
-[data-theme='dark'] .navbar {
-  background-color: rgba(28, 27, 52, 0.9);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid #33325a;
-}
-
+.navbar__brand,
 .navbar__title {
-  font-weight: 700;
-}
-
-/* Footer */
-[data-theme='dark'] .footer {
-  --ifm-footer-link-color: #a9c9c8;
-  --ifm-footer-title-color: #bae8e8;
-  border-top: 1px solid #33325a;
-}
-
-.footer {
-  border-top: 1px solid var(--ifm-toc-border-color);
-}
-
-/* Sidebar */
-[data-theme='dark'] .theme-doc-sidebar-container {
-  border-right: 1px solid #33325a;
-}
-
-.theme-doc-sidebar-container {
-  border-right: 1px solid var(--ifm-toc-border-color);
-}
-
-.menu__link--active:not(.menu__link--sublist) {
+  color: #ffffff;
   font-weight: 600;
 }
 
-/* Code blocks */
+.navbar__link {
+  color: var(--rail-inactive);
+}
+
+.navbar__link:hover {
+  color: #ffffff;
+}
+
+.navbar__link--active {
+  color: #ffffff;
+  font-weight: 500;
+  box-shadow: inset 0 -2px 0 var(--aqua);
+}
+
+.navbar__toggle {
+  color: #ffffff;
+}
+
+.navbar__search-input {
+  border: 1px solid var(--indigo-2);
+}
+
+.navbar__search-input:focus {
+  border-color: var(--aqua);
+  box-shadow: none;
+}
+
+.navbar .clean-btn {
+  color: var(--rail-inactive);
+}
+
+.navbar .clean-btn:hover {
+  color: #ffffff;
+  background: var(--indigo-2);
+}
+
+/* ==========================================================================
+   Sidebar - dark indigo rail matching the dashboard
+   ========================================================================== */
+.theme-doc-sidebar-container {
+  background: var(--indigo);
+  border-right: 1px solid var(--indigo-2) !important;
+}
+
+.theme-doc-sidebar-container .menu {
+  background: var(--indigo);
+}
+
+.theme-doc-sidebar-container .menu__link {
+  color: var(--rail-inactive);
+  border-left: 3px solid transparent;
+  border-radius: 0;
+  font-size: 13px;
+  padding: 8px 20px 8px 17px;
+}
+
+.theme-doc-sidebar-container .menu__link:hover {
+  color: #ffffff;
+  background: var(--indigo-2);
+}
+
+.theme-doc-sidebar-container .menu__link--active {
+  color: var(--rail-active);
+  font-weight: 500;
+  border-left-color: var(--aqua);
+  background: var(--rail-wash);
+}
+
+.theme-doc-sidebar-container .menu__link--active:hover {
+  background: var(--rail-wash);
+}
+
+.theme-doc-sidebar-container .menu__list .menu__list {
+  padding-left: 0;
+}
+
+.theme-doc-sidebar-container .menu__caret:before,
+.theme-doc-sidebar-container .menu__link--sublist-caret:after {
+  filter: invert(1) brightness(1.8);
+}
+
+.theme-doc-sidebar-container .menu__list-item-collapsible:hover {
+  background: var(--indigo-2);
+}
+
+/* Non-clickable uppercase group labels ({type: 'html'} sidebar items) */
+.menu-group-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--rail-group-label);
+  font-weight: 600;
+  padding: 8px 20px 6px 17px !important;
+  margin-top: 8px;
+  cursor: default;
+}
+
+.menu__list-item:first-child .menu-group-label {
+  margin-top: 0;
+}
+
+.theme-doc-sidebar-container .clean-btn {
+  color: var(--rail-inactive);
+}
+
+.theme-doc-sidebar-container .clean-btn:hover {
+  color: #ffffff;
+  background: var(--indigo-2);
+}
+
+/* ==========================================================================
+   Content typography
+   ========================================================================== */
+.theme-doc-markdown {
+  max-width: 68ch;
+}
+
+.theme-doc-breadcrumbs {
+  font-size: 12.5px;
+}
+
+.breadcrumbs__link {
+  color: var(--mut);
+}
+
+.breadcrumbs__item--active .breadcrumbs__link {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.breadcrumbs__item:not(:last-child)::after {
+  color: var(--mut);
+}
+
+article h1 {
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+
+article h2 {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 40px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+article h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 28px;
+}
+
+.markdown > p:first-of-type {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--mut);
+}
+
+.markdown p,
+.markdown li {
+  font-size: 14px;
+  line-height: 1.72;
+  color: var(--body);
+}
+
+.markdown a:not(.menu__link):not(.navbar__link):not(.pagination-nav__link) {
+  color: var(--steel);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(44, 105, 141, 0.3);
+}
+
+.markdown a:not(.menu__link):not(.navbar__link):not(.pagination-nav__link):hover {
+  border-bottom-color: var(--steel);
+}
+
+.markdown code {
+  background: var(--code-bg);
+  color: var(--steel);
+  border: none;
+}
+
+/* ==========================================================================
+   Code blocks - flat, steel left rule, square corners
+   ========================================================================== */
+.theme-code-block {
+  background: var(--code-bg) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border-left: 2px solid var(--steel) !important;
+}
+
 .prism-code {
-  border: 1px solid var(--ifm-toc-border-color);
-  border-radius: 8px;
+  background: var(--code-bg) !important;
+  border-radius: 0 !important;
 }
 
-[data-theme='dark'] .prism-code {
-  border-color: #33325a;
-}
-
-/* Cards / admonitions - hairline over heavy framing */
-.card {
-  border: 1px solid var(--ifm-toc-border-color);
-  box-shadow: none;
-}
-
-[data-theme='dark'] .card {
-  border-color: #33325a;
-  background-color: #23223f;
-}
-
+/* ==========================================================================
+   Admonitions -> hairline callouts, no card
+   ========================================================================== */
 .alert {
-  border-radius: 8px;
-  box-shadow: none;
+  background: transparent !important;
+  border: none !important;
+  border-left: 2px solid var(--aqua) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 4px 0 4px 15px !important;
 }
 
-[data-theme='dark'] .alert {
-  background-color: #23223f;
+.alert > div:first-child {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--steel);
+  font-weight: 600;
+  margin-bottom: 5px !important;
 }
 
-/* Tables */
+.alert > div:first-child svg {
+  display: none;
+}
+
+.alert p {
+  font-size: 13.5px;
+  color: var(--body);
+}
+
+/* ==========================================================================
+   Generated category index pages -> hairline list, not a card grid
+   ========================================================================== */
+.row:has(> .col > .theme-doc-card-container) {
+  display: block;
+}
+
+.row:has(> .col > .theme-doc-card-container) > .col {
+  max-width: 100%;
+  flex: 0 0 100%;
+  padding: 0;
+}
+
+.theme-doc-card-container {
+  background: transparent !important;
+  border: none !important;
+  border-top: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 16px 0 !important;
+}
+
+.theme-doc-card-container:hover {
+  border-color: var(--line) !important;
+}
+
+.theme-doc-card-container:last-child {
+  border-bottom: 1px solid var(--line) !important;
+}
+
+.theme-doc-card-heading {
+  font-size: 15px;
+  color: var(--ink) !important;
+}
+
+.theme-doc-card-container:hover .theme-doc-card-heading {
+  color: var(--steel) !important;
+}
+
+.theme-doc-card-description {
+  font-size: 13.5px;
+  color: var(--mut) !important;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+/* ==========================================================================
+   TOC (right rail) - single hairline, no box
+   ========================================================================== */
+.theme-doc-toc-desktop {
+  border-left: 1px solid var(--line);
+  padding-left: 16px;
+}
+
+.table-of-contents {
+  border-left: none;
+  font-size: 12px;
+}
+
+.table-of-contents__link {
+  color: var(--mut);
+}
+
+.table-of-contents__link:hover {
+  color: var(--steel);
+}
+
+.table-of-contents__link--active {
+  color: var(--steel);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Pagination nav -> hairline row, not a card
+   ========================================================================== */
+.pagination-nav__link {
+  border: none;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+}
+
+.pagination-nav__link:hover {
+  border-color: var(--steel);
+  background: transparent;
+}
+
+.pagination-nav__sublabel {
+  color: var(--mut);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.pagination-nav__label {
+  color: var(--ink);
+}
+
+.pagination-nav__link:hover .pagination-nav__label {
+  color: var(--steel);
+}
+
+/* ==========================================================================
+   Tables
+   ========================================================================== */
 table {
   display: table;
+  font-size: 13.5px;
 }
 
-[data-theme='dark'] table {
-  border-color: #33325a;
+th {
+  color: var(--ink);
 }
 
-[data-theme='dark'] th {
-  background-color: #23223f;
+td,
+th {
+  border-color: var(--line);
 }
 
 [data-theme='dark'] tr:nth-child(2n) {
   background-color: rgba(186, 232, 232, 0.03);
 }
 
-/* Buttons - 8px radius everywhere, no pill shapes */
+/* ==========================================================================
+   Buttons - 8px radius everywhere, no pill shapes
+   ========================================================================== */
 .button {
   border-radius: 8px;
 }
@@ -143,27 +467,75 @@ table {
   border-color: transparent;
 }
 
-/* Search */
-[data-theme='dark'] .DocSearch-Button,
-[data-theme='dark'] .navbar__search-input {
-  background-color: #23223f;
-  border: 1px solid #33325a;
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer {
+  border-top: 1px solid var(--line);
+  --ifm-footer-background-color: var(--paper);
+  --ifm-footer-color: var(--mut);
+  --ifm-footer-link-color: var(--steel);
+  --ifm-footer-title-color: var(--ink);
 }
 
+/* ==========================================================================
+   Version badge (src/components/Version.tsx)
+   ========================================================================== */
 .version-badge {
   display: inline-block;
   margin-top: 0.5rem;
-  padding: 0.2rem 0.6rem;
-  border-radius: 8px;
-  border: 1px solid var(--ifm-color-primary-lightest);
-  background-color: rgba(44, 105, 141, 0.08);
-  color: var(--ifm-color-primary-darker);
+  padding: 1.5px 6px;
+  border-radius: 4px;
+  border: none;
+  background-color: var(--code-bg);
+  color: var(--steel);
   font-family: var(--ifm-font-family-monospace);
   font-size: 0.8rem;
 }
 
-[data-theme='dark'] .version-badge {
-  background-color: rgba(186, 232, 232, 0.08);
-  color: var(--ifm-color-primary-lightest);
-  border-color: #33325a;
+/* ==========================================================================
+   API reference endpoint rows (docs/sdk/api-reference.md)
+   Log lines instead of a boxed table: verb, path, description, hairline.
+   ========================================================================== */
+.kz-endpoints {
+  margin: 0 0 24px;
+}
+
+.kz-endpoint {
+  display: grid;
+  grid-template-columns: 62px 1fr;
+  gap: 14px;
+  align-items: baseline;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.kz-endpoint-verb {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-align: right;
+  padding-top: 2px;
+}
+
+.kz-endpoint-verb--post {
+  color: var(--ok);
+}
+
+.kz-endpoint-verb--get {
+  color: var(--steel);
+}
+
+.kz-endpoint-path {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.kz-endpoint-desc {
+  font-size: 13px;
+  color: var(--mut);
+  margin-top: 4px !important;
+  line-height: 1.6;
 }

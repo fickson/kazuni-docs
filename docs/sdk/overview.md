@@ -54,8 +54,10 @@ To keep this documentation honest about the current state of the product:
 - No webhook support in the SDK or the API. Delivery outcomes (sent, bounced, complained) are not
   pushed to your application; see [Sending Email](/docs/sdk/sending-email) for how to check status
   instead.
-- No scheduled sends, contact management, or template rendering in the SDK. Those exist in the
+- No scheduled sends or template rendering in the SDK. Those exist in the
   [Kazuni dashboard](/docs/platform/overview) today, not as SDK methods.
+- Contact management is available over the REST API - see
+  [API Reference](/docs/sdk/api-reference#contacts) - but is not yet in a published SDK release.
 
 ## Next steps
 

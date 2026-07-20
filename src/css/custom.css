@@ -17,6 +17,8 @@
   --line: #dbe6e8;
   --code-bg: #f3fafa;
   --ok: #1d7a53;
+  --amber: #9a6510;
+  --rose: #a8302a;
   --body: #3f4664;
 
   --rail-inactive: #b7bed6;
@@ -71,6 +73,8 @@
   --code-bg: #23223f;
   --body: #c7cee6;
   --ok: #2fbf8f;
+  --amber: #d9a441;
+  --rose: #e8908a;
   --steel: #6cafd0;
 
   --ifm-color-primary: var(--steel);
@@ -525,6 +529,15 @@ th {
 
 .kz-endpoint-verb--get {
   color: var(--steel);
+}
+
+.kz-endpoint-verb--patch,
+.kz-endpoint-verb--put {
+  color: var(--amber);
+}
+
+.kz-endpoint-verb--delete {
+  color: var(--rose);
 }
 
 .kz-endpoint-path {

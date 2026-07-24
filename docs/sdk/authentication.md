@@ -15,7 +15,7 @@ Authorization: Bearer cl_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 The SDK handles this header for you - you only need to pass the key to the `Kazuni` constructor:
 
 ```typescript
-import { Kazuni } from "kazuni";
+import { Kazuni } from "@kazuni/sdk";
 
 const kazuni = new Kazuni(process.env.KAZUNI_API_KEY!);
 ```

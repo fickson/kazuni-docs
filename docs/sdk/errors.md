@@ -10,7 +10,7 @@ Every failed SDK call - a bad request, an authentication problem, a network fail
 throws a single error type: `KazuniError`.
 
 ```typescript
-import { Kazuni, KazuniError } from "kazuni";
+import { Kazuni, KazuniError } from "@kazuni/sdk";
 
 try {
   await kazuni.send.email({

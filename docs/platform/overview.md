@@ -8,7 +8,8 @@ description: Kazuni is a unified notifications platform for African businesses
 
 Kazuni is a unified notifications platform for African businesses. Today that means transactional
 and campaign email, sent through your own domain and delivered on infrastructure you never have to
-touch directly. SMS and WhatsApp are planned as additional channels - not available yet. You pay
+touch directly, plus SMS through a sender ID registered for the countries you send to. WhatsApp is
+planned as an additional channel - not available yet. You pay
 for Kazuni with mobile money in your own currency, billed through Chia, instead of needing a
 foreign-currency card.
 

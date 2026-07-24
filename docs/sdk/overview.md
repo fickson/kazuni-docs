@@ -10,15 +10,15 @@ import Version from '@site/src/components/Version';
 
 <Version pkg="sdk" />
 
-The Kazuni SDK (`kazuni` on npm) is the official JavaScript/TypeScript client for the Kazuni
-notifications API. Kazuni is a unified notifications platform for African businesses - email
-today, with SMS and WhatsApp planned. The v1 API surface the SDK talks to covers **transactional
-email sending**; that is the only channel available right now.
+The Kazuni SDK (`@kazuni/sdk` on npm) is the official JavaScript/TypeScript client for the Kazuni
+notifications API. Kazuni is a unified notifications platform for African businesses - email and
+SMS today, with WhatsApp planned. The v1 API surface the SDK talks to covers **transactional
+email and SMS sending**.
 
 Construct one `Kazuni` client per API key and reuse it across requests:
 
 ```typescript
-import { Kazuni } from "kazuni";
+import { Kazuni } from "@kazuni/sdk";
 
 const kazuni = new Kazuni(process.env.KAZUNI_API_KEY!);
 
@@ -30,15 +30,15 @@ const result = await kazuni.send.email({
   text: "Thanks for signing up.",
 });
 
-console.log(result.id, result.status); // "email_...", "queued"
+console.log(result.id, result.status); // "9f2c1a84-...", "queued"
 ```
 
 ## Features
 
 - **Typed end to end** - full TypeScript definitions for every request and response, with JSDoc
   on every exported symbol so your editor's hover/autocomplete doubles as documentation.
-- **A single send method today** - `kazuni.send.email()`. As Kazuni adds SMS and WhatsApp
-  support to the API, this SDK will grow matching methods; it does not have them yet.
+- **Two send methods today** - `kazuni.send.email()` and `kazuni.send.sms()`. As Kazuni adds
+  WhatsApp support to the API, this SDK will grow a matching method; it does not have one yet.
 - **A typed error hierarchy** - every failure, from a bad API key to a network timeout, throws a
   `KazuniError` with a consistent shape. See [Errors](/docs/sdk/errors).
 - **Safe-by-default retries** - transient failures are retried with backoff, but a `POST` is only
@@ -49,15 +49,18 @@ console.log(result.id, result.status); // "email_...", "queued"
 
 To keep this documentation honest about the current state of the product:
 
-- No SMS or WhatsApp sending. The platform is described as "email today, SMS and WhatsApp next" -
-  next means not yet.
+- No WhatsApp sending. The platform is described as "email and SMS today, WhatsApp next" - next
+  means not yet.
 - No webhook support in the SDK or the API. Delivery outcomes (sent, bounced, complained) are not
   pushed to your application; see [Sending Email](/docs/sdk/sending-email) for how to check status
   instead.
 - No scheduled sends or template rendering in the SDK. Those exist in the
   [Kazuni dashboard](/docs/platform/overview) today, not as SDK methods.
-- Contact management is available over the REST API - see
-  [API Reference](/docs/sdk/api-reference#contacts) - but is not yet in a published SDK release.
+- `send.sms()`, `messages.get()` and `contacts.*` ship in the published package but do not have
+  guide pages here yet. The REST endpoints behind them are documented in the
+  [API Reference](/docs/sdk/api-reference), and every method carries JSDoc in your editor.
+- SMS sends need a sender ID registered for the destination country, the way email needs a
+  verified domain. An unregistered sender ID is rejected at send time.
 
 ## Next steps
 

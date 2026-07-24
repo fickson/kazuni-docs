@@ -4,6 +4,7 @@ type PackageKey = "sdk";
 
 export default function Version({ pkg }: { pkg: PackageKey }) {
   const versions = usePluginData("package-versions") as Record<PackageKey, string>;
-  const version = versions?.[pkg] ?? "0.0.0";
+  const version = versions?.[pkg];
+  if (!version) return null;
   return <span className="version-badge">v{version}</span>;
 }

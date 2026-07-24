@@ -9,13 +9,13 @@ description: Install the Kazuni SDK and send your first email
 ## 1. Install the SDK
 
 ```bash
-pnpm add kazuni
+pnpm add @kazuni/sdk
 ```
 
 ```bash
-npm i kazuni
+npm i @kazuni/sdk
 # or
-yarn add kazuni
+yarn add @kazuni/sdk
 ```
 
 ## 2. Verify a sending domain
@@ -33,7 +33,7 @@ permission. The full key is shown once, at creation - copy it somewhere safe. Se
 ## 4. Send an email
 
 ```typescript
-import { Kazuni } from "kazuni";
+import { Kazuni } from "@kazuni/sdk";
 
 const kazuni = new Kazuni(process.env.KAZUNI_API_KEY!);
 
@@ -57,7 +57,7 @@ the email for delivery, not that it has been delivered - see
 Every failed request throws a `KazuniError`:
 
 ```typescript
-import { Kazuni, KazuniError } from "kazuni";
+import { Kazuni, KazuniError } from "@kazuni/sdk";
 
 try {
   await kazuni.send.email({

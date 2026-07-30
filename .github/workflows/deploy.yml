@@ -42,8 +42,13 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         # wrangler.toml declares docs.usekazuni.com as a custom domain. Cloudflare
-        # creates that DNS record itself, so the Workers-scoped token is enough.
+        # creates that DNS record itself, so no Edit-zone-DNS token is needed.
         # Declaring routes without 'workers_dev = true' also disables the
         # workers.dev hostname, so kazuni-docs.fickson-limited.workers.dev now
         # 404s and docs.usekazuni.com is the only way in.
-        run: npx wrangler deploy
+        #
+        # wrangler is pinned in package.json rather than resolved by bare npx.
+        # 4.115.0 calls /zones/<id>/workers/routes on every deploy, which the
+        # Workers-scoped token cannot reach, so it failed after uploading. 4.112.0
+        # is what kazunihq/platform deploys with against this same account.
+        run: pnpm exec wrangler deploy

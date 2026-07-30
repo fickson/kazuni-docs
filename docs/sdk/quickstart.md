@@ -4,6 +4,9 @@ title: Quickstart
 description: Install the Kazuni SDK and send your first email
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Quickstart
 
 ## 1. Install the SDK
@@ -32,6 +35,9 @@ permission. The full key is shown once, at creation - copy it somewhere safe. Se
 
 ## 4. Send an email
 
+<Tabs groupId="client">
+<TabItem value="sdk" label="TypeScript">
+
 ```typescript
 import { Kazuni } from "@kazuni/sdk";
 
@@ -48,8 +54,31 @@ const result = await kazuni.send.email({
 console.log(result.id, result.status); // "email_...", "queued"
 ```
 
-`to` accepts exactly one recipient address per call. A resolved promise means Kazuni **accepted**
-the email for delivery, not that it has been delivered - see
+</TabItem>
+<TabItem value="curl" label="curl">
+
+```bash
+curl -X POST https://api.usekazuni.com/v1/emails/send \
+  -H "Authorization: Bearer $KAZUNI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "from": "Acme <hello@acme.example>",
+    "to": "customer@example.com",
+    "subject": "Welcome to Acme",
+    "html": "<p>Thanks for signing up.</p>",
+    "text": "Thanks for signing up."
+  }'
+```
+
+```json
+{ "id": "3fa2e4c1-...", "status": "queued" }
+```
+
+</TabItem>
+</Tabs>
+
+`to` accepts exactly one recipient address per call. A `202` from the API, or a resolved promise
+from the SDK, means Kazuni **accepted** the email for delivery, not that it has been delivered - see
 [Sending Email](/docs/sdk/sending-email) for what `status: "queued"` does and doesn't mean.
 
 ## 5. Handle failures

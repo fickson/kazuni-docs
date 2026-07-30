@@ -108,7 +108,7 @@ WhatsApp delivery - none of that exists yet. See
 ## Base URL
 
 ```
-https://api.kazuni.io
+https://api.usekazuni.com
 ```
 
 ## Authentication

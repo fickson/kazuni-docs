@@ -3,5 +3,12 @@ name = "kazuni-docs"
 main = "worker.ts"
 compatibility_date = "2026-02-02"
 
+# Cloudflare provisions the DNS record for a custom domain itself, so the
+# Workers-scoped API token is sufficient here and no Edit-zone-DNS token is
+# needed.
+routes = [
+  { pattern = "docs.usekazuni.com", custom_domain = true }
+]
+
 [assets]
 directory = "build"

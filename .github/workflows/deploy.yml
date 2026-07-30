@@ -41,6 +41,7 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        # wrangler.toml declares no routes, so this publishes to workers.dev
-        # only. Custom domains are deliberately not configured yet.
+        # wrangler.toml declares docs.usekazuni.com as a custom domain. Cloudflare
+        # creates that DNS record itself, so the Workers-scoped token is enough;
+        # the workers.dev hostname keeps serving alongside it.
         run: npx wrangler deploy

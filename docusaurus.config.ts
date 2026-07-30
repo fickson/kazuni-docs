@@ -11,7 +11,7 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://docs.kazuni.io',
+  url: 'https://docs.usekazuni.com',
   baseUrl: '/',
 
   organizationName: 'kazunihq',
@@ -144,8 +144,8 @@ const config: Config = {
           title: 'Kazuni',
           items: [
             {
-              label: 'kazuni.io',
-              href: 'https://kazuni.io',
+              label: 'usekazuni.com',
+              href: 'https://usekazuni.com',
             },
           ],
         },

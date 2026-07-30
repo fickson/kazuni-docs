@@ -11,7 +11,7 @@ the dashboard once; each step links to a fuller guide if you need more detail.
 
 ## 1. Create your account and organization
 
-Sign up at [kazuni.io](https://kazuni.io). Everything in Kazuni - domains, contacts, templates,
+Sign up at [usekazuni.com](https://usekazuni.com). Everything in Kazuni - domains, contacts, templates,
 campaigns, API keys - belongs to an organization, so you'll create one as part of sign-up.
 
 ## 2. Verify a sending domain

@@ -163,6 +163,19 @@ Send a single transactional email. Requires an API key with the **Send email** p
 | `html` | `string` | Yes | The HTML body. |
 | `text` | `string` | No | Plain-text fallback. |
 
+```bash
+curl -X POST https://api.usekazuni.com/v1/emails/send \
+  -H "Authorization: Bearer $KAZUNI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "from": "Acme <hello@acme.example>",
+    "to": "customer@example.com",
+    "subject": "Welcome to Acme",
+    "html": "<p>Thanks for signing up.</p>",
+    "text": "Thanks for signing up."
+  }'
+```
+
 **Success response** - `202 Accepted`
 
 ```json
@@ -188,6 +201,11 @@ Look up the status of a previously sent email. `id` is the value returned by
 `POST /v1/emails/send`. This endpoint is not yet wrapped by the SDK - call it directly with
 `fetch` or your HTTP client of choice, or check status from the
 [Kazuni dashboard](/docs/platform/delivery).
+
+```bash
+curl https://api.usekazuni.com/v1/emails/3fa2e4c1-... \
+  -H "Authorization: Bearer $KAZUNI_API_KEY"
+```
 
 **Success response** - `200 OK`
 
@@ -220,6 +238,11 @@ Look up the status of a previously sent email. `id` is the value returned by
 Returns information about the API key making the request - useful for confirming which
 organization and mode (live/test) a key belongs to, and what it's allowed to do, without hard
 -coding that information in your application.
+
+```bash
+curl https://api.usekazuni.com/v1/me \
+  -H "Authorization: Bearer $KAZUNI_API_KEY"
+```
 
 **Success response** - `200 OK`
 
@@ -299,6 +322,13 @@ List contacts, newest first.
 | `q` | `string` | Free-text search across names and identifier values. |
 | `listId` | `uuid` | Restrict to members of one contact list. Invalid uuid returns `400`. |
 
+```bash
+curl -G https://api.usekazuni.com/v1/contacts \
+  -H "Authorization: Bearer $KAZUNI_API_KEY" \
+  --data-urlencode "q=thoko" \
+  --data-urlencode "limit=50"
+```
+
 **Success response** - `200 OK`
 
 ```json
@@ -330,6 +360,20 @@ Create a contact. Requires at least one identifier.
 | `metadata` | `object` | No | String keys to string values. Defaults to `{}`. |
 | `listId` | `uuid` | No | Add the new contact to this list immediately. |
 
+```bash
+curl -X POST https://api.usekazuni.com/v1/contacts \
+  -H "Authorization: Bearer $KAZUNI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "identifiers": [
+      { "type": "email", "value": "thoko@example.com", "isPrimary": true },
+      { "type": "phone", "value": "0991 234 567" }
+    ],
+    "firstName": "Thoko",
+    "lastName": "Banda"
+  }'
+```
+
 **Success response** - `201 Created`, the contact object.
 
 If any identifier already belongs to another contact the whole request fails with `409`. Use
@@ -339,6 +383,19 @@ If any identifier already belongs to another contact the whole request fails wit
 
 Same body as `POST /v1/contacts`. Looks the contact up by identifier first: if exactly one existing
 contact matches, it is updated; if none match, it is created.
+
+```bash
+curl -X POST https://api.usekazuni.com/v1/contacts/upsert \
+  -H "Authorization: Bearer $KAZUNI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "identifiers": [
+      { "type": "email", "value": "thoko@example.com", "isPrimary": true }
+    ],
+    "firstName": "Thoko",
+    "metadata": { "plan": "growth" }
+  }'
+```
 
 **Success response** - `201 Created` when a contact was created, `200 OK` when an existing one was
 updated. Both return the contact object.
@@ -353,6 +410,11 @@ the same payload.
 
 Retrieve one contact.
 
+```bash
+curl https://api.usekazuni.com/v1/contacts/9c1f7b2e-... \
+  -H "Authorization: Bearer $KAZUNI_API_KEY"
+```
+
 **Success response** - `200 OK`, the contact object.
 
 ### PATCH /v1/contacts/:id
@@ -366,11 +428,23 @@ and are ignored here.
 
 Every field is optional; supplying `metadata` replaces the whole object rather than merging keys.
 
+```bash
+curl -X PATCH https://api.usekazuni.com/v1/contacts/9c1f7b2e-... \
+  -H "Authorization: Bearer $KAZUNI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "firstName": "Thoko", "metadata": { "plan": "scale" } }'
+```
+
 **Success response** - `200 OK`, the updated contact object.
 
 ### DELETE /v1/contacts/:id
 
 Delete a contact along with its identifiers, consent rows, and list memberships.
+
+```bash
+curl -X DELETE https://api.usekazuni.com/v1/contacts/9c1f7b2e-... \
+  -H "Authorization: Bearer $KAZUNI_API_KEY"
+```
 
 **Success response** - `204 No Content`, with an empty body.
 
@@ -388,6 +462,13 @@ Attach an additional email or phone to an existing contact.
 
 The primary email is the address campaigns send to.
 
+```bash
+curl -X POST https://api.usekazuni.com/v1/contacts/9c1f7b2e-.../identifiers \
+  -H "Authorization: Bearer $KAZUNI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "type": "email", "value": "thoko@work.example", "isPrimary": false }'
+```
+
 **Success response** - `201 Created`, the full updated contact object.
 
 If the identifier already belongs to this contact the call is a no-op and returns the contact
@@ -402,6 +483,11 @@ that is fixed, add identifiers with `isPrimary: false` and change the primary fr
 ### DELETE /v1/contacts/:id/identifiers/:identifierId
 
 Remove one identifier.
+
+```bash
+curl -X DELETE https://api.usekazuni.com/v1/contacts/9c1f7b2e-.../identifiers/1a2b... \
+  -H "Authorization: Bearer $KAZUNI_API_KEY"
+```
 
 **Success response** - `200 OK`, the full updated contact object.
 
@@ -421,6 +507,13 @@ returns `400`.
 |---|---|---|---|
 | `status` | `string` | Yes | `subscribed` or `unsubscribed`. |
 | `source` | `string` | No | How consent changed: `signup`, `import`, `unsubscribe_link`, `reply_stop`, or `api`. Defaults to `api`. |
+
+```bash
+curl -X PUT https://api.usekazuni.com/v1/contacts/9c1f7b2e-.../subscriptions/email \
+  -H "Authorization: Bearer $KAZUNI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "status": "unsubscribed", "source": "api" }'
+```
 
 **Success response** - `200 OK`, the full updated contact object.
 

@@ -96,7 +96,7 @@ const config: Config = {
           label: 'SDK',
         },
         {
-          href: 'https://www.npmjs.com/package/kazuni',
+          href: 'https://www.npmjs.com/package/@kazuni/sdk',
           label: 'npm',
           position: 'right',
         },
@@ -132,7 +132,7 @@ const config: Config = {
           items: [
             {
               label: 'npm',
-              href: 'https://www.npmjs.com/package/kazuni',
+              href: 'https://www.npmjs.com/package/@kazuni/sdk',
             },
             {
               label: 'GitHub',

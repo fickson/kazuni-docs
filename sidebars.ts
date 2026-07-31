@@ -28,6 +28,7 @@ const sidebars: SidebarsConfig = {
       },
       items: [
         'platform/sending-domains',
+        'platform/smtp-relay',
         'platform/contacts',
         'platform/templates',
         'platform/campaigns',

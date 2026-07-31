@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 8
 title: Delivery
 description: What happens after you hit send, and how to check it
 ---

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 5
 title: Contacts
 description: Managing the people you send to, across channels
 ---

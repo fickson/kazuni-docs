@@ -24,6 +24,8 @@ of your workflow you'd rather automate.
 - **[Sending Domains](/docs/platform/sending-domains)** - verify a domain so you can send from an
   address on it. This is usually the first thing a new organization does, and the part most likely
   to need a technical colleague's help with DNS.
+- **[SMTP Relay](/docs/platform/smtp-relay)** - connection settings for sending through Kazuni from
+  software you cannot change, such as WordPress or Odoo. Four settings, no code.
 - **[Contacts](/docs/platform/contacts)** - the people you send to, organized into lists.
 - **[Templates](/docs/platform/templates)** - the emails you send, built once and reused.
 - **[Campaigns](/docs/platform/campaigns)** - pairing a template with a contact list and sending it,
@@ -33,13 +35,23 @@ of your workflow you'd rather automate.
 - **API Keys** - under Settings, for programmatic access. See
   [Authentication](/docs/sdk/authentication) for the details.
 
-## Two ways to send
+## Three ways to send
 
-You can do everything above by hand in the dashboard, or drive it programmatically. The two aren't
-mutually exclusive - a common pattern is verifying a domain and building templates in the
-dashboard, then sending transactional email (password resets, receipts, notifications) from your
-application code with the [SDK](/docs/sdk/overview), while marketing or lifecycle campaigns stay in
-the dashboard's campaign builder.
+You can do everything above by hand in the dashboard, drive it programmatically, or point existing
+software at Kazuni over SMTP. They aren't mutually exclusive, and most organizations end up using
+more than one.
+
+- **The dashboard**, for marketing and lifecycle campaigns built against a contact list.
+- **The [SDK](/docs/sdk/overview) and REST API**, for transactional email sent from code you
+  control: password resets, receipts, notifications. This is the only route that gets stored
+  templates, scheduled sending and idempotency keys.
+- **The [SMTP relay](/docs/platform/smtp-relay)**, for software you cannot change. WordPress, Odoo,
+  ERPNext, a monitoring agent, an office scanner: anything that already knows how to send mail but
+  cannot be taught to call an API.
+
+A common pattern is verifying a domain and building templates in the dashboard, then sending
+transactional email from application code with the SDK, while campaigns stay in the dashboard's
+campaign builder.
 
 ## Next steps
 
